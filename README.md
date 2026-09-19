@@ -1,4 +1,4 @@
-# KiPay - Seamless Payment Gateway Official
+# KiPay - Seamless Payment Gateway Official SDK
 
 [![npm version](https://img.shields.io/npm/v/kipay.svg)](https://www.npmjs.com/package/kipay)
 [![CI](https://github.com/KiroFyzu/kipay-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/KiroFyzu/kipay-sdk/actions/workflows/ci.yml)
