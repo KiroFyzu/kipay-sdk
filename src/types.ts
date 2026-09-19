@@ -43,4 +43,7 @@ export interface KiPayClientOptions {
   /** Inject a custom fetch implementation (polyfill, instrumentation, proxy
    * agent). Defaults to the runtime's global fetch (Node.js 18+). */
   fetch?: typeof fetch;
+  /** Per-request timeout in milliseconds. Defaults to 30000. A request that
+   * exceeds it rejects with a `TimeoutError` DOMException. */
+  timeout?: number;
 }

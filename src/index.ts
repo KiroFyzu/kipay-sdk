@@ -19,6 +19,7 @@ export type {
 } from './types.js';
 
 const DEFAULT_BASE_URL = 'https://api.kipay.id';
+const DEFAULT_TIMEOUT_MS = 30_000;
 
 /**
  * Client for KiPay's public checkout API (https://kipay.id/docs).
@@ -38,6 +39,7 @@ export class KiPay {
   private readonly apiKey: string;
   private readonly baseUrl: string;
   private readonly fetchImpl: typeof fetch;
+  private readonly timeout: number;
 
   constructor(apiKey: string, options: KiPayClientOptions = {}) {
     if (!apiKey || typeof apiKey !== 'string') {
@@ -50,6 +52,11 @@ export class KiPay {
       throw new TypeError('KiPay: tidak ada fetch implementation tersedia. Pakai Node.js 18+, atau kirim options.fetch.');
     }
     this.fetchImpl = fetchImpl;
+    const timeout = options.timeout ?? DEFAULT_TIMEOUT_MS;
+    if (typeof timeout !== 'number' || !Number.isFinite(timeout) || timeout <= 0) {
+      throw new TypeError('KiPay: timeout harus berupa angka milidetik yang lebih besar dari 0.');
+    }
+    this.timeout = timeout;
   }
 
   /** POST /api/pay/{apiKey}/transactions — buat transaksi QRIS baru. */
@@ -87,7 +94,7 @@ export class KiPay {
    * QR code-nya langsung, mis. untuk disimpan ke file atau dilampirkan ke email. */
   async getQrCodePng(trxId: string): Promise<Uint8Array> {
     const url = this.getQrCodeUrl(trxId);
-    const response = await this.fetchImpl(url);
+    const response = await this.fetchImpl(url, { signal: AbortSignal.timeout(this.timeout) });
     if (!response.ok) {
       throw new KiPayError(`Gagal mengambil QR code (HTTP ${response.status}).`, response.status);
     }
@@ -100,6 +107,7 @@ export class KiPay {
       method,
       headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
       body: body !== undefined ? JSON.stringify(body) : undefined,
+      signal: AbortSignal.timeout(this.timeout),
     });
 
     const text = await response.text();
