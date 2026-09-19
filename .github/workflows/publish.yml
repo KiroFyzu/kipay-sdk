@@ -30,4 +30,12 @@ jobs:
 
       - run: npm ci
 
-      - run: npm publish --provenance --access public
+      - name: Publish
+        run: |
+          set +e
+          npm publish --provenance --access public --loglevel verbose 2>&1 | tee publish.log
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            grep -E 'oidc|npm error|http fetch' publish.log | head -20 | while IFS= read -r line; do echo "::error::${line}"; done
+          fi
+          exit $code
