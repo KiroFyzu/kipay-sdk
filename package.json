@@ -1,7 +1,7 @@
 {
   "name": "kipay",
   "version": "1.1.1",
-  "description": "Official Node.js SDK for the KiPay QRIS payment gateway API (https://kipay.id/docs).",
+  "description": "Official Node.js SDK for the KiPay QRIS payment gateway API (https://kipay.biz.id/docs).",
   "license": "MIT",
   "repository": {
     "type": "git",

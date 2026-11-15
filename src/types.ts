@@ -38,7 +38,7 @@ export interface SimulatePaymentParams {
 
 export interface KiPayClientOptions {
   /** Override the API origin — e.g. http://localhost:4000 for local/staging.
-   * Defaults to https://api.kipay.id. */
+   * Defaults to https://api.kipay.biz.id. */
   baseUrl?: string;
   /** Inject a custom fetch implementation (polyfill, instrumentation, proxy
    * agent). Defaults to the runtime's global fetch (Node.js 18+). */

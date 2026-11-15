@@ -18,11 +18,11 @@ export type {
   TransactionStatus,
 } from './types.js';
 
-const DEFAULT_BASE_URL = 'https://api.kipay.id';
+const DEFAULT_BASE_URL = 'https://api.kipay.biz.id';
 const DEFAULT_TIMEOUT_MS = 30_000;
 
 /**
- * Client for KiPay's public checkout API (https://kipay.id/docs).
+ * Client for KiPay's public checkout API (https://kipay.biz.id/docs).
  *
  * `apiKey` is a project's API Key (from /dashboard/projects) — a public
  * identifier, not a secret credential, but requests should still be made

@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/kipay.svg)](https://www.npmjs.com/package/kipay)
 [![CI](https://github.com/KiroFyzu/kipay-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/KiroFyzu/kipay-sdk/actions/workflows/ci.yml)
 
-Official Node.js SDK for the [KiPay](https://kipay.id) QRIS payment gateway API. Thin, typed wrapper around the four public checkout endpoints documented at [kipay.id/docs](https://kipay.id/docs) — no magic, no hidden retries.
+Official Node.js SDK for the [KiPay](https://kipay.biz.id) QRIS payment gateway API. Thin, typed wrapper around the four public checkout endpoints documented at [kipay.biz.id/docs](https://kipay.biz.id/docs) — no magic, no hidden retries.
 
 ## Install
 
@@ -42,7 +42,7 @@ if (current.status === 'paid') {
 ### `new KiPay(apiKey, options?)`
 
 - `apiKey: string` — required, your project's API Key.
-- `options.baseUrl?: string` — override the API origin, e.g. `http://localhost:4000` for local development against a self-hosted gateway. Defaults to `https://api.kipay.id`.
+- `options.baseUrl?: string` — override the API origin, e.g. `http://localhost:4000` for local development against a self-hosted gateway. Defaults to `https://api.kipay.biz.id`.
 - `options.fetch?: typeof fetch` — inject a custom fetch implementation (polyfill, instrumentation, proxy agent). Defaults to the global `fetch`.
 - `options.timeout?: number` — per-request timeout in milliseconds. Defaults to `30000`. A request that exceeds it rejects with a `TimeoutError` (`error.name === 'TimeoutError'`), not a `KiPayError`.
 
@@ -104,7 +104,7 @@ try {
 
 ## Webhooks
 
-This SDK does not include webhook signature verification — as of this API's current contract, the signature header and retry schedule for outgoing webhooks aren't part of the documented public interface yet (see the "Terima webhook" guide at [kipay.id/docs](https://kipay.id/docs)). Don't build your own assumptions about that header on top of this package. Instead, treat an incoming webhook as a hint to re-check, not a source of truth:
+This SDK does not include webhook signature verification — as of this API's current contract, the signature header and retry schedule for outgoing webhooks aren't part of the documented public interface yet (see the "Terima webhook" guide at [kipay.biz.id/docs](https://kipay.biz.id/docs)). Don't build your own assumptions about that header on top of this package. Instead, treat an incoming webhook as a hint to re-check, not a source of truth:
 
 ```ts
 app.post('/webhooks/kipay', express.json(), async (req, res) => {
